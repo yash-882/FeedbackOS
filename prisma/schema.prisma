@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// organization model with relations to users, including optional fields for Zendesk and Slack integration
+model Organization {
+  id        String   @id @default(uuid())
+  name      String   @db.VarChar(100)
+  zendesk_subdomain String? @db.VarChar(255) 
+  slack_workspace_id String? @db.VarChar(255)
+  email String? @db.VarChar(255)
+  created_at DateTime @default(now())
+  users User[]
+}
+
+// user model with feedback resources and relations to feedback and feedback summaries
+model User {
+  id        String   @id @default(uuid())
+  name      String   @db.VarChar(100)
+  email     String   @unique
+  role    String   @db.VarChar(50)
+  feedback_resources FeedbackResourceType[] @default([])
+  organization_id String? @db.VarChar(255)
+  created_at DateTime @default(now())
+  feedbacks Feedback[] @relation("FeedbackUser")
+  feedback_summaries FeedbackSummary[] @relation("FeedbackSummaryUser")
+  organization Organization? @relation(fields: [organization_id], references: [id])
+}
+
+enum UserRole {
+  organization_admin
+  team_member
+  user
+}
+
+enum FeedbackResourceType {
+  email
+  zendesk
+  slack
+}
+
+// feedback model with relations to user and feedback summary, including priority level and negative feedback flag
+model Feedback {
+  id        String   @id @default(uuid())
+  user_id   String
+  resource_type FeedbackResourceType
+  content   String
+  priority  PriorityLevel
+  is_negative Boolean @default(false) 
+  created_at DateTime @default(now())
+  user User @relation( "FeedbackUser", fields: [user_id], references: [id])
+  feedback_summary_id String
+  feedback_summary FeedbackSummary @relation(fields: [feedback_summary_id], references: [id])
+}
+
+enum PriorityLevel {
+  low
+  medium
+  high
+  very_high
+}
+
+// feedback summary model with relations to user and feedback, including AI-generated summary
+model FeedbackSummary {
+  id        String   @id @default(uuid())
+  user_id   String
+  ai_summary   String
+  created_at DateTime @default(now())
+  user User @relation( "FeedbackSummaryUser", fields: [user_id], references: [id])
+  feedbacks Feedback[] 
+}
+
