@@ -3,10 +3,10 @@ import { prisma } from '../server.js';
 import { CustomError } from '../utils/classes/customError.js';
 import bcrypt from 'bcrypt';
 import RedisService from '../utils/classes/redisService.js';
-import sendEmail from '../utils/functions/sendMail.js';
 import { randomInt } from 'crypto'
-import { limitOTPActions, validateSignUpFields } from '../utils/functions/auth.js';
-
+import { bcryptCompare, limitOTPActions, validateSignUpFields } from '../utils/functions/auth.js';
+import { signAccessToken, signRefreshToken } from '../utils/functions/jwt.js';
+import sendEmail from '../utils/functions/sendMail.js';
 // create user
 async function validateUserSignUp(req, res, next) {
 
@@ -88,7 +88,77 @@ async function completeUserSignUp(req, res, next) {
     message: 'User created successfully.',
     user: newUser
   });
+}
+
+// login controller
+const login = async (req, res, next) => {
+    const {email, password} = {
+        ...req.body,
+        email: req.body.email.toLowerCase()
+    };
+
+   // check if user exists in DB with the given email
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if(!user) {
+        return next(new CustomError('Email is not registered with us!', 401));
+    }
+
+    // validate password, throws custom error if incorrect
+    await bcryptCompare({
+        plain: password, 
+        hashed: user.password
+    }, 'Incorrect password!');
+
+    // password was correct, sign tokens
+    // tokens properties AT = Access Token, RT = Refresh Token
+    const tokens = {
+        AT: signAccessToken({
+            id: user.id, 
+            roles: user.role
+        }),
+        RT: signRefreshToken({
+            id: user.id, 
+            roles: user.role
+        }),
+
+    // parseInt stops parsing when 'd'(stands for days) is triggered,
+    // and returns numbers of days in Number datatype
+        AT_AGE: parseInt(process.env.ACCESS_TOKEN_EXPIRES_IN), //in minutes
+        RT_AGE: parseInt(process.env.REFRESH_TOKEN_EXPIRES_IN) //in days
+    } 
+
+    // store tokens in the browser cookies
+    res.cookie('AT', tokens.AT, {
+        httpOnly: true,
+        expires: new Date(Date.now() + tokens.AT_AGE * 60 * 1000), // minutes 
+    });
+
+    res.cookie('RT', tokens.RT, {
+        httpOnly: true,
+        expires: new Date(Date.now() + tokens.RT_AGE * 24 * 60 * 60 * 1000), // days
+    });
+
+    // delete password before responding
+    user.password = undefined
+
+    res.status(200).json({
+        status: 'success',
+        message: 'Logged in successfully!',
+        user,
+    })
 
 }
 
-export { validateUserSignUp, completeUserSignUp };
+const logout = async (req, res, next) => {
+
+    // Clear the authentication cookies to log the user out
+    res.clearCookie('AT', { httpOnly: true });
+    res.clearCookie('RT', { httpOnly: true });
+    res.status(200).json({
+        status: 'success',
+        message: 'Logged out successfully!'
+    })
+}
+
+export { validateUserSignUp, completeUserSignUp, login, logout };

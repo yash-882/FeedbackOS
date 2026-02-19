@@ -1,6 +1,7 @@
 import { prisma } from "../../server.js";
 import { CustomError } from "../classes/customError.js";
 import RedisService from "../classes/redisService.js";
+import bcrypt from 'bcrypt';
 
 // validate sign up fields for user registration
 async function validateSignUpFields(email, password) {
@@ -65,4 +66,17 @@ async function limitOTPActions(redisService, ttl = 300, isRequestAttempt, maxLim
     return data;
 }
 
-export { validateSignUpFields, limitOTPActions };
+// compares plain texts with hashed strings, throws a custom error if not equal
+const bcryptCompare = async ({plain, hashed}, errMessage = 'Incorrect!') => {
+
+    // compare plain string with hashed string
+    const isCorrect = await bcrypt.compare(plain + "", hashed);
+
+    if(!isCorrect) {
+        throw new CustomError(errMessage, 401);
+    }
+
+    return true;
+}
+
+export { validateSignUpFields, limitOTPActions, bcryptCompare };
