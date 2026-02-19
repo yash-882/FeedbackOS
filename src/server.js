@@ -1,15 +1,47 @@
+import './configs/loadEnv.js';
 
-import dotenv from 'dotenv';
-dotenv.config();
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+    process.exit(1); // Fail fast
+});
 
-// prisma client setup
+import app from './app.js';
+import redisClient from './configs/redisClient.js';
 import { PrismaClient } from '../generated/prisma/client.ts';
 import { PrismaPg } from '@prisma/adapter-pg';
 
+const PORT = process.env.PORT || 8000;
 
-const adapter = new PrismaPg({ 
-    connectionString: process.env.DATABASE_URL 
+// Prisma setup
+export const prisma = new PrismaClient({
+  adapter: new PrismaPg({
+    connectionString: process.env.DATABASE_URL,
+  }),
 });
-const prisma = new PrismaClient({
-    adapter,
-});
+
+async function startServer() {
+  try {
+    // Connect Redis
+    redisClient.on('error', (err) => {
+      console.error('Redis Client Error:', err);
+    });
+
+    await redisClient.connect();
+    console.log('Redis connected');
+
+    // Verify PostgreSQL connection
+    await prisma.$queryRaw`SELECT 1`;
+    console.log('PostgreSQL connected');
+
+    // Start HTTP server only after dependencies are ready
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
+  } catch (err) {
+    console.error('Startup failed:', err);
+    process.exit(1); // Fail fast
+  }
+}
+
+startServer();

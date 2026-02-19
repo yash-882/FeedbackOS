@@ -5,7 +5,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=development nodemon src/server.js",
+    "start": "cross-env NODE_ENV=production node src/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,9 +15,12 @@
     "@prisma/adapter-pg": "^7.3.0",
     "@prisma/client": "^7.3.0",
     "dotenv": "^17.2.3",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "redis": "^5.11.0"
   },
   "devDependencies": {
+    "cross-env": "^10.1.0",
+    "nodemon": "^3.1.11",
     "prisma": "^7.3.0"
   }
 }
