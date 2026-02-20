@@ -364,8 +364,6 @@ const submitNewPassword = async (req, res, next) => {
         status: 'success',
         message: 'Password reset successfully! You can now log in with your new password.'
     })
-
-
 }
 
 export { 

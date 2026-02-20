@@ -1,8 +1,11 @@
 // app
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import globalErrorHandler from './middlewares/globalErrorHandler.js';
+
 const app = express();
 
+// body parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -17,9 +20,10 @@ app.use((req, res, next) => {
 
 // routes
 import authRoutes from './routes/auth.js';
-import globalErrorHandler from './middlewares/globalErrorHandler.js';
+import userRoutes from './routes/user.js';
 
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
 app.use(globalErrorHandler)
 
