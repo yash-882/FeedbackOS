@@ -6,7 +6,7 @@ CREATE TYPE "PriorityLevel" AS ENUM ('low', 'medium', 'high', 'very_high');
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" TEXT NOT NULL,
+    "id" TEXT NOT NULL DEFAULT gen_random_uuid(),
     "name" VARCHAR(100) NOT NULL,
     "email" TEXT NOT NULL,
     "feedback_resources" "FeedbackResourceType"[] DEFAULT ARRAY[]::"FeedbackResourceType"[],
@@ -17,7 +17,7 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Feedback" (
-    "id" TEXT NOT NULL,
+    "id" TEXT NOT NULL  DEFAULT gen_random_uuid(),
     "user_id" TEXT NOT NULL,
     "resource_type" "FeedbackResourceType" NOT NULL,
     "content" TEXT NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE "Feedback" (
 
 -- CreateTable
 CREATE TABLE "FeedbackSummary" (
-    "id" TEXT NOT NULL,
+    "id" TEXT NOT NULL  DEFAULT gen_random_uuid(),
     "user_id" TEXT NOT NULL,
     "ai_summary" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

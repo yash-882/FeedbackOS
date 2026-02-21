@@ -10,7 +10,8 @@ class RedisService {
             SIGN_UP_OTP: 'sign-up',
             EMAIL_CHANGE_OTP: 'change-email',
             RESET_PASSWORD_TOKEN: 'reset-password-token',
-            DATA_CACHE: 'cached'
+            DATA_CACHE: 'cached',
+            ORG_JOIN_CODE: 'org-join-code'
         }
         this.uniqueID = uniqueID;
         this.purpose = this.purposes[purpose] || purpose || 'unknown'

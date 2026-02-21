@@ -3,7 +3,7 @@ ALTER TABLE "User" ADD COLUMN     "organization_id" VARCHAR(255);
 
 -- CreateTable
 CREATE TABLE "Organization" (
-    "id" TEXT NOT NULL,
+    "id" TEXT NOT NULL  DEFAULT gen_random_uuid(),
     "name" VARCHAR(100) NOT NULL,
     "zendesk_subdomain" VARCHAR(255),
     "slack_workspace_id" VARCHAR(255),

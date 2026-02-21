@@ -745,6 +745,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const OrganizationScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  admin_id: 'admin_id',
   zendesk_subdomain: 'zendesk_subdomain',
   slack_workspace_id: 'slack_workspace_id',
   email: 'email',

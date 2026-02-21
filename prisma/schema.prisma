@@ -17,10 +17,13 @@ datasource db {
 model Organization {
   id        String   @id @default(uuid())
   name      String   @db.VarChar(100)
+  admin_id String @db.VarChar(255) @unique
   zendesk_subdomain String? @db.VarChar(255) 
   slack_workspace_id String? @db.VarChar(255)
   email String? @db.VarChar(255)
   created_at DateTime @default(now())
+  admin User @relation("OrganizationAdmin", fields: [admin_id], references: [id])
+
   users User[]
 }
 
@@ -37,6 +40,7 @@ model User {
   feedbacks Feedback[] @relation("FeedbackUser")
   feedback_summaries FeedbackSummary[] @relation("FeedbackSummaryUser")
   organization Organization? @relation(fields: [organization_id], references: [id])
+  administeredOrganization Organization? @relation("OrganizationAdmin")
 }
 
 enum UserRole {

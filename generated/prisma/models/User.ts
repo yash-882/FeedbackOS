@@ -205,6 +205,7 @@ export type UserWhereInput = {
   feedbacks?: Prisma.FeedbackListRelationFilter
   feedback_summaries?: Prisma.FeedbackSummaryListRelationFilter
   organization?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
+  administeredOrganization?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -219,6 +220,7 @@ export type UserOrderByWithRelationInput = {
   feedbacks?: Prisma.FeedbackOrderByRelationAggregateInput
   feedback_summaries?: Prisma.FeedbackSummaryOrderByRelationAggregateInput
   organization?: Prisma.OrganizationOrderByWithRelationInput
+  administeredOrganization?: Prisma.OrganizationOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -236,6 +238,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   feedbacks?: Prisma.FeedbackListRelationFilter
   feedback_summaries?: Prisma.FeedbackSummaryListRelationFilter
   organization?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
+  administeredOrganization?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -277,6 +280,7 @@ export type UserCreateInput = {
   feedbacks?: Prisma.FeedbackCreateNestedManyWithoutUserInput
   feedback_summaries?: Prisma.FeedbackSummaryCreateNestedManyWithoutUserInput
   organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  administeredOrganization?: Prisma.OrganizationCreateNestedOneWithoutAdminInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -290,6 +294,7 @@ export type UserUncheckedCreateInput = {
   created_at?: Date | string
   feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutUserInput
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedCreateNestedManyWithoutUserInput
+  administeredOrganization?: Prisma.OrganizationUncheckedCreateNestedOneWithoutAdminInput
 }
 
 export type UserUpdateInput = {
@@ -303,6 +308,7 @@ export type UserUpdateInput = {
   feedbacks?: Prisma.FeedbackUpdateManyWithoutUserNestedInput
   feedback_summaries?: Prisma.FeedbackSummaryUpdateManyWithoutUserNestedInput
   organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput
+  administeredOrganization?: Prisma.OrganizationUpdateOneWithoutAdminNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -316,6 +322,7 @@ export type UserUncheckedUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutUserNestedInput
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedUpdateManyWithoutUserNestedInput
+  administeredOrganization?: Prisma.OrganizationUncheckedUpdateOneWithoutAdminNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -348,6 +355,11 @@ export type UserUncheckedUpdateManyInput = {
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
 }
 
 export type UserListRelationFilter = {
@@ -399,9 +411,10 @@ export type UserMinOrderByAggregateInput = {
   created_at?: Prisma.SortOrder
 }
 
-export type UserScalarRelationFilter = {
-  is?: Prisma.UserWhereInput
-  isNot?: Prisma.UserWhereInput
+export type UserCreateNestedOneWithoutAdministeredOrganizationInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAdministeredOrganizationInput, Prisma.UserUncheckedCreateWithoutAdministeredOrganizationInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdministeredOrganizationInput
+  connect?: Prisma.UserWhereUniqueInput
 }
 
 export type UserCreateNestedManyWithoutOrganizationInput = {
@@ -416,6 +429,14 @@ export type UserUncheckedCreateNestedManyWithoutOrganizationInput = {
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrganizationInput | Prisma.UserCreateOrConnectWithoutOrganizationInput[]
   createMany?: Prisma.UserCreateManyOrganizationInputEnvelope
   connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUpdateOneRequiredWithoutAdministeredOrganizationNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAdministeredOrganizationInput, Prisma.UserUncheckedCreateWithoutAdministeredOrganizationInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdministeredOrganizationInput
+  upsert?: Prisma.UserUpsertWithoutAdministeredOrganizationInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAdministeredOrganizationInput, Prisma.UserUpdateWithoutAdministeredOrganizationInput>, Prisma.UserUncheckedUpdateWithoutAdministeredOrganizationInput>
 }
 
 export type UserUpdateManyWithoutOrganizationNestedInput = {
@@ -483,6 +504,37 @@ export type UserUpdateOneRequiredWithoutFeedback_summariesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFeedback_summariesInput, Prisma.UserUpdateWithoutFeedback_summariesInput>, Prisma.UserUncheckedUpdateWithoutFeedback_summariesInput>
 }
 
+export type UserCreateWithoutAdministeredOrganizationInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  role: string
+  feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
+  created_at?: Date | string
+  feedbacks?: Prisma.FeedbackCreateNestedManyWithoutUserInput
+  feedback_summaries?: Prisma.FeedbackSummaryCreateNestedManyWithoutUserInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+}
+
+export type UserUncheckedCreateWithoutAdministeredOrganizationInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  role: string
+  feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
+  organization_id?: string | null
+  created_at?: Date | string
+  feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutUserInput
+  feedback_summaries?: Prisma.FeedbackSummaryUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAdministeredOrganizationInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAdministeredOrganizationInput, Prisma.UserUncheckedCreateWithoutAdministeredOrganizationInput>
+}
+
 export type UserCreateWithoutOrganizationInput = {
   id?: string
   name: string
@@ -493,6 +545,7 @@ export type UserCreateWithoutOrganizationInput = {
   created_at?: Date | string
   feedbacks?: Prisma.FeedbackCreateNestedManyWithoutUserInput
   feedback_summaries?: Prisma.FeedbackSummaryCreateNestedManyWithoutUserInput
+  administeredOrganization?: Prisma.OrganizationCreateNestedOneWithoutAdminInput
 }
 
 export type UserUncheckedCreateWithoutOrganizationInput = {
@@ -505,6 +558,7 @@ export type UserUncheckedCreateWithoutOrganizationInput = {
   created_at?: Date | string
   feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutUserInput
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedCreateNestedManyWithoutUserInput
+  administeredOrganization?: Prisma.OrganizationUncheckedCreateNestedOneWithoutAdminInput
 }
 
 export type UserCreateOrConnectWithoutOrganizationInput = {
@@ -515,6 +569,43 @@ export type UserCreateOrConnectWithoutOrganizationInput = {
 export type UserCreateManyOrganizationInputEnvelope = {
   data: Prisma.UserCreateManyOrganizationInput | Prisma.UserCreateManyOrganizationInput[]
   skipDuplicates?: boolean
+}
+
+export type UserUpsertWithoutAdministeredOrganizationInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAdministeredOrganizationInput, Prisma.UserUncheckedUpdateWithoutAdministeredOrganizationInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAdministeredOrganizationInput, Prisma.UserUncheckedCreateWithoutAdministeredOrganizationInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAdministeredOrganizationInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAdministeredOrganizationInput, Prisma.UserUncheckedUpdateWithoutAdministeredOrganizationInput>
+}
+
+export type UserUpdateWithoutAdministeredOrganizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  feedbacks?: Prisma.FeedbackUpdateManyWithoutUserNestedInput
+  feedback_summaries?: Prisma.FeedbackSummaryUpdateManyWithoutUserNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAdministeredOrganizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
+  organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutUserNestedInput
+  feedback_summaries?: Prisma.FeedbackSummaryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -557,6 +648,7 @@ export type UserCreateWithoutFeedbacksInput = {
   created_at?: Date | string
   feedback_summaries?: Prisma.FeedbackSummaryCreateNestedManyWithoutUserInput
   organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  administeredOrganization?: Prisma.OrganizationCreateNestedOneWithoutAdminInput
 }
 
 export type UserUncheckedCreateWithoutFeedbacksInput = {
@@ -569,6 +661,7 @@ export type UserUncheckedCreateWithoutFeedbacksInput = {
   organization_id?: string | null
   created_at?: Date | string
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedCreateNestedManyWithoutUserInput
+  administeredOrganization?: Prisma.OrganizationUncheckedCreateNestedOneWithoutAdminInput
 }
 
 export type UserCreateOrConnectWithoutFeedbacksInput = {
@@ -597,6 +690,7 @@ export type UserUpdateWithoutFeedbacksInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   feedback_summaries?: Prisma.FeedbackSummaryUpdateManyWithoutUserNestedInput
   organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput
+  administeredOrganization?: Prisma.OrganizationUpdateOneWithoutAdminNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFeedbacksInput = {
@@ -609,6 +703,7 @@ export type UserUncheckedUpdateWithoutFeedbacksInput = {
   organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedUpdateManyWithoutUserNestedInput
+  administeredOrganization?: Prisma.OrganizationUncheckedUpdateOneWithoutAdminNestedInput
 }
 
 export type UserCreateWithoutFeedback_summariesInput = {
@@ -621,6 +716,7 @@ export type UserCreateWithoutFeedback_summariesInput = {
   created_at?: Date | string
   feedbacks?: Prisma.FeedbackCreateNestedManyWithoutUserInput
   organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput
+  administeredOrganization?: Prisma.OrganizationCreateNestedOneWithoutAdminInput
 }
 
 export type UserUncheckedCreateWithoutFeedback_summariesInput = {
@@ -633,6 +729,7 @@ export type UserUncheckedCreateWithoutFeedback_summariesInput = {
   organization_id?: string | null
   created_at?: Date | string
   feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutUserInput
+  administeredOrganization?: Prisma.OrganizationUncheckedCreateNestedOneWithoutAdminInput
 }
 
 export type UserCreateOrConnectWithoutFeedback_summariesInput = {
@@ -661,6 +758,7 @@ export type UserUpdateWithoutFeedback_summariesInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   feedbacks?: Prisma.FeedbackUpdateManyWithoutUserNestedInput
   organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput
+  administeredOrganization?: Prisma.OrganizationUpdateOneWithoutAdminNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFeedback_summariesInput = {
@@ -673,6 +771,7 @@ export type UserUncheckedUpdateWithoutFeedback_summariesInput = {
   organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutUserNestedInput
+  administeredOrganization?: Prisma.OrganizationUncheckedUpdateOneWithoutAdminNestedInput
 }
 
 export type UserCreateManyOrganizationInput = {
@@ -695,6 +794,7 @@ export type UserUpdateWithoutOrganizationInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   feedbacks?: Prisma.FeedbackUpdateManyWithoutUserNestedInput
   feedback_summaries?: Prisma.FeedbackSummaryUpdateManyWithoutUserNestedInput
+  administeredOrganization?: Prisma.OrganizationUpdateOneWithoutAdminNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrganizationInput = {
@@ -707,6 +807,7 @@ export type UserUncheckedUpdateWithoutOrganizationInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutUserNestedInput
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedUpdateManyWithoutUserNestedInput
+  administeredOrganization?: Prisma.OrganizationUncheckedUpdateOneWithoutAdminNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutOrganizationInput = {
@@ -771,6 +872,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   feedbacks?: boolean | Prisma.User$feedbacksArgs<ExtArgs>
   feedback_summaries?: boolean | Prisma.User$feedback_summariesArgs<ExtArgs>
   organization?: boolean | Prisma.User$organizationArgs<ExtArgs>
+  administeredOrganization?: boolean | Prisma.User$administeredOrganizationArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -814,6 +916,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   feedbacks?: boolean | Prisma.User$feedbacksArgs<ExtArgs>
   feedback_summaries?: boolean | Prisma.User$feedback_summariesArgs<ExtArgs>
   organization?: boolean | Prisma.User$organizationArgs<ExtArgs>
+  administeredOrganization?: boolean | Prisma.User$administeredOrganizationArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -829,6 +932,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     feedbacks: Prisma.$FeedbackPayload<ExtArgs>[]
     feedback_summaries: Prisma.$FeedbackSummaryPayload<ExtArgs>[]
     organization: Prisma.$OrganizationPayload<ExtArgs> | null
+    administeredOrganization: Prisma.$OrganizationPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1236,6 +1340,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   feedbacks<T extends Prisma.User$feedbacksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$feedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   feedback_summaries<T extends Prisma.User$feedback_summariesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$feedback_summariesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeedbackSummaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   organization<T extends Prisma.User$organizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$organizationArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  administeredOrganization<T extends Prisma.User$administeredOrganizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$administeredOrganizationArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1720,6 +1825,25 @@ export type User$feedback_summariesArgs<ExtArgs extends runtime.Types.Extensions
  * User.organization
  */
 export type User$organizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Organization
+   */
+  select?: Prisma.OrganizationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Organization
+   */
+  omit?: Prisma.OrganizationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrganizationInclude<ExtArgs> | null
+  where?: Prisma.OrganizationWhereInput
+}
+
+/**
+ * User.administeredOrganization
+ */
+export type User$administeredOrganizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Organization
    */
