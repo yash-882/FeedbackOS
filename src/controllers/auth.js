@@ -78,12 +78,14 @@ async function completeUserSignUp(req, res, next) {
       name,
       email: storedEmail,
       password: hashedPassword,
-      role: 'user' // can be changed after sign-up based on requirements (except Admin role)
+      roles: ['user'] // can be changed after sign-up based on requirements (except Admin role)
     }
   });
 
   // Remove the OTP data from Redis after successful sign-up
   await redisService.deleteData();
+
+  newUser.password = undefined; // remove password from the response
 
   res.status(201).json({
     status: 'success',
@@ -117,11 +119,11 @@ const login = async (req, res, next) => {
     const tokens = {
         AT: signAccessToken({
             id: user.id, 
-            roles: user.role
+            roles: user.roles
         }),
         RT: signRefreshToken({
             id: user.id, 
-            roles: user.role
+            roles: user.roles
         }),
 
     // parseInt stops parsing when 'd'(stands for days) is triggered,

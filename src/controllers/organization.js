@@ -4,6 +4,7 @@ import { prisma } from '../server.js';
 import { CustomError } from '../utils/classes/customError.js';
 import { randomBytes } from 'crypto';
 import RedisService from '../utils/classes/redisService.js';
+import { limitCodeGeneration, pushJoinCodeToSet, validateOrganizationJoin } from '../utils/functions/organization.js';
 
 // create organization
 const createOrganization = async (req, res, next) => {
@@ -11,6 +12,10 @@ const createOrganization = async (req, res, next) => {
 
     if (req.user.organization_id)
         return next(new CustomError("You already have an organization!", 400))
+
+    // prevent duplicates
+    if(email === req.user.email)
+        return next(new CustomError("Organization email cannot be the same as your personal email!", 400))
 
     let organization
     await prisma.$transaction(async (tx) => {
@@ -22,6 +27,7 @@ const createOrganization = async (req, res, next) => {
                 email,
                 zendesk_subdomain,
                 slack_workspace_id,
+                admin_id: req.user.id
             }
         })
 
@@ -32,6 +38,9 @@ const createOrganization = async (req, res, next) => {
             },
             data: {
                 organization_id: organization.id,
+                roles: {
+                    push: !req.user.roles.includes('organization_admin') ? 'organization_admin' : undefined, // push admin role if not present
+                }                               
             }
         })
     });
@@ -45,22 +54,31 @@ const createOrganization = async (req, res, next) => {
 
 // get join code of organization (only accessible to org. admin)
 // org. admin gets join-code and share it with other users to join their organization
+// daily limit is applied
 const getOrganizationJoinCode = async (req, res, next) => {
+    const organizationId = req.user.organization_id;
 
-    const organization_id = req.user.organization_id;
-
-    if (!organization_id)
+    if (!organizationId)
         return next(new CustomError("You don't have an organization yet!", 404))
 
-    // create a join code by generating a random string and appending the organization id to it, then hashing the result to ensure it's unique and not guessable
+    // limit from generating codes (limit resets in 24 hours), throws err if limit reached
+    await limitCodeGeneration(organizationId)
+
+    // create a join code by generating a random string of 8 chars
     const joinCode = randomBytes(4).toString('hex').toUpperCase();
 
     // save the join code to Redis for an hour
-    const redisService = new RedisService(joinCode, 'ORG_JOIN_CODE');
-    await redisService.setShortLivedData({
-        organizationId: organization_id,
+    const joinCodeService = new RedisService(joinCode, 'ORG_JOIN_CODE');
+
+    // store code in redis
+    await joinCodeService.setShortLivedData({
+        organizationId: organizationId,
         code: joinCode,
+
     }, 3600);
+
+    // pushes code to Redis Set to keep all codes in a group
+    await pushJoinCodeToSet(joinCode, organizationId)
 
     res.status(200).json({
         status: 'success',
@@ -68,7 +86,41 @@ const getOrganizationJoinCode = async (req, res, next) => {
     })
 }
 
+// join organization with code
+// a users enter the code to join an organization and becomes a team member
+
+const joinOrganizationWithCode = async (req, res, next) => {
+    const { joinCode } = req.body || {};
+
+    const redisService = new RedisService(joinCode, 'ORG_JOIN_CODE');
+    const storedData = await redisService.getData();
+    
+    if (!storedData || storedData.code !== joinCode) {
+        return next(new CustomError("Invalid or expired join code!", 400));
+    }
+    
+    const { organizationId } = storedData;
+
+    // throws badrequest error if 
+    // user is already a member of an organization or is the admin of the organization they are trying to join
+    validateOrganizationJoin(req.user, organizationId)
+
+    // Update user's organization_id in the database
+    const updatedUser = await prisma.user.update({
+        where: { id: req.user.id },
+        data: { organization_id: organizationId, roles: { push: 'team_member' } },
+        select: { id: true, name: true, email: true, organization_id: true }
+    });
+
+    res.status(200).json({
+        status: 'success',
+        message: 'Successfully joined the organization!',
+        data: { user: updatedUser }
+    });
+}
+
 export {
     createOrganization,
-    getOrganizationJoinCode
+    getOrganizationJoinCode,
+    joinOrganizationWithCode
 }

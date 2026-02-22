@@ -28,31 +28,29 @@ export type UserMinAggregateOutputType = {
   id: string | null
   name: string | null
   email: string | null
-  password: string | null
-  role: string | null
-  organization_id: string | null
   created_at: Date | null
+  organization_id: string | null
+  password: string | null
 }
 
 export type UserMaxAggregateOutputType = {
   id: string | null
   name: string | null
   email: string | null
-  password: string | null
-  role: string | null
-  organization_id: string | null
   created_at: Date | null
+  organization_id: string | null
+  password: string | null
 }
 
 export type UserCountAggregateOutputType = {
   id: number
   name: number
   email: number
-  password: number
-  role: number
   feedback_resources: number
-  organization_id: number
   created_at: number
+  organization_id: number
+  roles: number
+  password: number
   _all: number
 }
 
@@ -61,31 +59,29 @@ export type UserMinAggregateInputType = {
   id?: true
   name?: true
   email?: true
-  password?: true
-  role?: true
-  organization_id?: true
   created_at?: true
+  organization_id?: true
+  password?: true
 }
 
 export type UserMaxAggregateInputType = {
   id?: true
   name?: true
   email?: true
-  password?: true
-  role?: true
-  organization_id?: true
   created_at?: true
+  organization_id?: true
+  password?: true
 }
 
 export type UserCountAggregateInputType = {
   id?: true
   name?: true
   email?: true
-  password?: true
-  role?: true
   feedback_resources?: true
-  organization_id?: true
   created_at?: true
+  organization_id?: true
+  roles?: true
+  password?: true
   _all?: true
 }
 
@@ -165,11 +161,11 @@ export type UserGroupByOutputType = {
   id: string
   name: string
   email: string
-  password: string
-  role: string
   feedback_resources: $Enums.FeedbackResourceType[]
-  organization_id: string | null
   created_at: Date
+  organization_id: string | null
+  roles: $Enums.UserRole[]
+  password: string
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -197,30 +193,30 @@ export type UserWhereInput = {
   id?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
-  role?: Prisma.StringFilter<"User"> | string
   feedback_resources?: Prisma.EnumFeedbackResourceTypeNullableListFilter<"User">
-  organization_id?: Prisma.StringNullableFilter<"User"> | string | null
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  organization_id?: Prisma.StringNullableFilter<"User"> | string | null
+  roles?: Prisma.EnumUserRoleNullableListFilter<"User">
+  password?: Prisma.StringFilter<"User"> | string
   feedbacks?: Prisma.FeedbackListRelationFilter
   feedback_summaries?: Prisma.FeedbackSummaryListRelationFilter
-  organization?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   administeredOrganization?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
+  organization?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   feedback_resources?: Prisma.SortOrder
-  organization_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  organization_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  roles?: Prisma.SortOrder
+  password?: Prisma.SortOrder
   feedbacks?: Prisma.FeedbackOrderByRelationAggregateInput
   feedback_summaries?: Prisma.FeedbackSummaryOrderByRelationAggregateInput
-  organization?: Prisma.OrganizationOrderByWithRelationInput
   administeredOrganization?: Prisma.OrganizationOrderByWithRelationInput
+  organization?: Prisma.OrganizationOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -230,26 +226,26 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
-  role?: Prisma.StringFilter<"User"> | string
   feedback_resources?: Prisma.EnumFeedbackResourceTypeNullableListFilter<"User">
-  organization_id?: Prisma.StringNullableFilter<"User"> | string | null
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  organization_id?: Prisma.StringNullableFilter<"User"> | string | null
+  roles?: Prisma.EnumUserRoleNullableListFilter<"User">
+  password?: Prisma.StringFilter<"User"> | string
   feedbacks?: Prisma.FeedbackListRelationFilter
   feedback_summaries?: Prisma.FeedbackSummaryListRelationFilter
-  organization?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   administeredOrganization?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
+  organization?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   feedback_resources?: Prisma.SortOrder
-  organization_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  organization_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  roles?: Prisma.SortOrder
+  password?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -262,36 +258,36 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
-  password?: Prisma.StringWithAggregatesFilter<"User"> | string
-  role?: Prisma.StringWithAggregatesFilter<"User"> | string
   feedback_resources?: Prisma.EnumFeedbackResourceTypeNullableListFilter<"User">
-  organization_id?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  organization_id?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  roles?: Prisma.EnumUserRoleNullableListFilter<"User">
+  password?: Prisma.StringWithAggregatesFilter<"User"> | string
 }
 
 export type UserCreateInput = {
   id?: string
   name: string
   email: string
-  password: string
-  role: string
   feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Date | string
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  password: string
   feedbacks?: Prisma.FeedbackCreateNestedManyWithoutUserInput
   feedback_summaries?: Prisma.FeedbackSummaryCreateNestedManyWithoutUserInput
-  organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   administeredOrganization?: Prisma.OrganizationCreateNestedOneWithoutAdminInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput
 }
 
 export type UserUncheckedCreateInput = {
   id?: string
   name: string
   email: string
-  password: string
-  role: string
   feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
-  organization_id?: string | null
   created_at?: Date | string
+  organization_id?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  password: string
   feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutUserInput
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedCreateNestedManyWithoutUserInput
   administeredOrganization?: Prisma.OrganizationUncheckedCreateNestedOneWithoutAdminInput
@@ -301,25 +297,25 @@ export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   feedbacks?: Prisma.FeedbackUpdateManyWithoutUserNestedInput
   feedback_summaries?: Prisma.FeedbackSummaryUpdateManyWithoutUserNestedInput
-  organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput
   administeredOrganization?: Prisma.OrganizationUpdateOneWithoutAdminNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
-  organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutUserNestedInput
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedUpdateManyWithoutUserNestedInput
   administeredOrganization?: Prisma.OrganizationUncheckedUpdateOneWithoutAdminNestedInput
@@ -329,32 +325,32 @@ export type UserCreateManyInput = {
   id?: string
   name: string
   email: string
-  password: string
-  role: string
   feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
-  organization_id?: string | null
   created_at?: Date | string
+  organization_id?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  password: string
 }
 
 export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  password?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
-  organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  password?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type UserScalarRelationFilter = {
@@ -380,35 +376,41 @@ export type EnumFeedbackResourceTypeNullableListFilter<$PrismaModel = never> = {
   isEmpty?: boolean
 }
 
+export type EnumUserRoleNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel> | null
+  has?: $Enums.UserRole | Prisma.EnumUserRoleFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   feedback_resources?: Prisma.SortOrder
-  organization_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  organization_id?: Prisma.SortOrder
+  roles?: Prisma.SortOrder
+  password?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  organization_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  organization_id?: Prisma.SortOrder
+  password?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  organization_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  organization_id?: Prisma.SortOrder
+  password?: Prisma.SortOrder
 }
 
 export type UserCreateNestedOneWithoutAdministeredOrganizationInput = {
@@ -471,9 +473,18 @@ export type UserCreatefeedback_resourcesInput = {
   set: $Enums.FeedbackResourceType[]
 }
 
+export type UserCreaterolesInput = {
+  set: $Enums.UserRole[]
+}
+
 export type UserUpdatefeedback_resourcesInput = {
   set?: $Enums.FeedbackResourceType[]
   push?: $Enums.FeedbackResourceType | $Enums.FeedbackResourceType[]
+}
+
+export type UserUpdaterolesInput = {
+  set?: $Enums.UserRole[]
+  push?: $Enums.UserRole | $Enums.UserRole[]
 }
 
 export type UserCreateNestedOneWithoutFeedbacksInput = {
@@ -508,10 +519,10 @@ export type UserCreateWithoutAdministeredOrganizationInput = {
   id?: string
   name: string
   email: string
-  password: string
-  role: string
   feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Date | string
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  password: string
   feedbacks?: Prisma.FeedbackCreateNestedManyWithoutUserInput
   feedback_summaries?: Prisma.FeedbackSummaryCreateNestedManyWithoutUserInput
   organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput
@@ -521,11 +532,11 @@ export type UserUncheckedCreateWithoutAdministeredOrganizationInput = {
   id?: string
   name: string
   email: string
-  password: string
-  role: string
   feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
-  organization_id?: string | null
   created_at?: Date | string
+  organization_id?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  password: string
   feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutUserInput
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedCreateNestedManyWithoutUserInput
 }
@@ -539,10 +550,10 @@ export type UserCreateWithoutOrganizationInput = {
   id?: string
   name: string
   email: string
-  password: string
-  role: string
   feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Date | string
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  password: string
   feedbacks?: Prisma.FeedbackCreateNestedManyWithoutUserInput
   feedback_summaries?: Prisma.FeedbackSummaryCreateNestedManyWithoutUserInput
   administeredOrganization?: Prisma.OrganizationCreateNestedOneWithoutAdminInput
@@ -552,10 +563,10 @@ export type UserUncheckedCreateWithoutOrganizationInput = {
   id?: string
   name: string
   email: string
-  password: string
-  role: string
   feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Date | string
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  password: string
   feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutUserInput
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedCreateNestedManyWithoutUserInput
   administeredOrganization?: Prisma.OrganizationUncheckedCreateNestedOneWithoutAdminInput
@@ -586,10 +597,10 @@ export type UserUpdateWithoutAdministeredOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   feedbacks?: Prisma.FeedbackUpdateManyWithoutUserNestedInput
   feedback_summaries?: Prisma.FeedbackSummaryUpdateManyWithoutUserNestedInput
   organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput
@@ -599,11 +610,11 @@ export type UserUncheckedUpdateWithoutAdministeredOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
-  organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutUserNestedInput
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -631,35 +642,35 @@ export type UserScalarWhereInput = {
   id?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
-  role?: Prisma.StringFilter<"User"> | string
   feedback_resources?: Prisma.EnumFeedbackResourceTypeNullableListFilter<"User">
-  organization_id?: Prisma.StringNullableFilter<"User"> | string | null
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  organization_id?: Prisma.StringNullableFilter<"User"> | string | null
+  roles?: Prisma.EnumUserRoleNullableListFilter<"User">
+  password?: Prisma.StringFilter<"User"> | string
 }
 
 export type UserCreateWithoutFeedbacksInput = {
   id?: string
   name: string
   email: string
-  password: string
-  role: string
   feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Date | string
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  password: string
   feedback_summaries?: Prisma.FeedbackSummaryCreateNestedManyWithoutUserInput
-  organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   administeredOrganization?: Prisma.OrganizationCreateNestedOneWithoutAdminInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput
 }
 
 export type UserUncheckedCreateWithoutFeedbacksInput = {
   id?: string
   name: string
   email: string
-  password: string
-  role: string
   feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
-  organization_id?: string | null
   created_at?: Date | string
+  organization_id?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  password: string
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedCreateNestedManyWithoutUserInput
   administeredOrganization?: Prisma.OrganizationUncheckedCreateNestedOneWithoutAdminInput
 }
@@ -684,24 +695,24 @@ export type UserUpdateWithoutFeedbacksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_summaries?: Prisma.FeedbackSummaryUpdateManyWithoutUserNestedInput
-  organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput
   administeredOrganization?: Prisma.OrganizationUpdateOneWithoutAdminNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFeedbacksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
-  organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedUpdateManyWithoutUserNestedInput
   administeredOrganization?: Prisma.OrganizationUncheckedUpdateOneWithoutAdminNestedInput
 }
@@ -710,24 +721,24 @@ export type UserCreateWithoutFeedback_summariesInput = {
   id?: string
   name: string
   email: string
-  password: string
-  role: string
   feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Date | string
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  password: string
   feedbacks?: Prisma.FeedbackCreateNestedManyWithoutUserInput
-  organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput
   administeredOrganization?: Prisma.OrganizationCreateNestedOneWithoutAdminInput
+  organization?: Prisma.OrganizationCreateNestedOneWithoutUsersInput
 }
 
 export type UserUncheckedCreateWithoutFeedback_summariesInput = {
   id?: string
   name: string
   email: string
-  password: string
-  role: string
   feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
-  organization_id?: string | null
   created_at?: Date | string
+  organization_id?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  password: string
   feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutUserInput
   administeredOrganization?: Prisma.OrganizationUncheckedCreateNestedOneWithoutAdminInput
 }
@@ -752,24 +763,24 @@ export type UserUpdateWithoutFeedback_summariesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   feedbacks?: Prisma.FeedbackUpdateManyWithoutUserNestedInput
-  organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput
   administeredOrganization?: Prisma.OrganizationUpdateOneWithoutAdminNestedInput
+  organization?: Prisma.OrganizationUpdateOneWithoutUsersNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFeedback_summariesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
-  organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutUserNestedInput
   administeredOrganization?: Prisma.OrganizationUncheckedUpdateOneWithoutAdminNestedInput
 }
@@ -778,20 +789,20 @@ export type UserCreateManyOrganizationInput = {
   id?: string
   name: string
   email: string
-  password: string
-  role: string
   feedback_resources?: Prisma.UserCreatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Date | string
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  password: string
 }
 
 export type UserUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   feedbacks?: Prisma.FeedbackUpdateManyWithoutUserNestedInput
   feedback_summaries?: Prisma.FeedbackSummaryUpdateManyWithoutUserNestedInput
   administeredOrganization?: Prisma.OrganizationUpdateOneWithoutAdminNestedInput
@@ -801,10 +812,10 @@ export type UserUncheckedUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutUserNestedInput
   feedback_summaries?: Prisma.FeedbackSummaryUncheckedUpdateManyWithoutUserNestedInput
   administeredOrganization?: Prisma.OrganizationUncheckedUpdateOneWithoutAdminNestedInput
@@ -814,10 +825,10 @@ export type UserUncheckedUpdateManyWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   feedback_resources?: Prisma.UserUpdatefeedback_resourcesInput | $Enums.FeedbackResourceType[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  password?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -864,15 +875,15 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   name?: boolean
   email?: boolean
-  password?: boolean
-  role?: boolean
   feedback_resources?: boolean
-  organization_id?: boolean
   created_at?: boolean
+  organization_id?: boolean
+  roles?: boolean
+  password?: boolean
   feedbacks?: boolean | Prisma.User$feedbacksArgs<ExtArgs>
   feedback_summaries?: boolean | Prisma.User$feedback_summariesArgs<ExtArgs>
-  organization?: boolean | Prisma.User$organizationArgs<ExtArgs>
   administeredOrganization?: boolean | Prisma.User$administeredOrganizationArgs<ExtArgs>
+  organization?: boolean | Prisma.User$organizationArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -880,11 +891,11 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   email?: boolean
-  password?: boolean
-  role?: boolean
   feedback_resources?: boolean
-  organization_id?: boolean
   created_at?: boolean
+  organization_id?: boolean
+  roles?: boolean
+  password?: boolean
   organization?: boolean | Prisma.User$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -892,11 +903,11 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   email?: boolean
-  password?: boolean
-  role?: boolean
   feedback_resources?: boolean
-  organization_id?: boolean
   created_at?: boolean
+  organization_id?: boolean
+  roles?: boolean
+  password?: boolean
   organization?: boolean | Prisma.User$organizationArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -904,19 +915,19 @@ export type UserSelectScalar = {
   id?: boolean
   name?: boolean
   email?: boolean
-  password?: boolean
-  role?: boolean
   feedback_resources?: boolean
-  organization_id?: boolean
   created_at?: boolean
+  organization_id?: boolean
+  roles?: boolean
+  password?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "feedback_resources" | "organization_id" | "created_at", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "feedback_resources" | "created_at" | "organization_id" | "roles" | "password", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   feedbacks?: boolean | Prisma.User$feedbacksArgs<ExtArgs>
   feedback_summaries?: boolean | Prisma.User$feedback_summariesArgs<ExtArgs>
-  organization?: boolean | Prisma.User$organizationArgs<ExtArgs>
   administeredOrganization?: boolean | Prisma.User$administeredOrganizationArgs<ExtArgs>
+  organization?: boolean | Prisma.User$organizationArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -931,18 +942,18 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     feedbacks: Prisma.$FeedbackPayload<ExtArgs>[]
     feedback_summaries: Prisma.$FeedbackSummaryPayload<ExtArgs>[]
-    organization: Prisma.$OrganizationPayload<ExtArgs> | null
     administeredOrganization: Prisma.$OrganizationPayload<ExtArgs> | null
+    organization: Prisma.$OrganizationPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     email: string
-    password: string
-    role: string
     feedback_resources: $Enums.FeedbackResourceType[]
-    organization_id: string | null
     created_at: Date
+    organization_id: string | null
+    roles: $Enums.UserRole[]
+    password: string
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1339,8 +1350,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   feedbacks<T extends Prisma.User$feedbacksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$feedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   feedback_summaries<T extends Prisma.User$feedback_summariesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$feedback_summariesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeedbackSummaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  organization<T extends Prisma.User$organizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$organizationArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   administeredOrganization<T extends Prisma.User$administeredOrganizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$administeredOrganizationArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  organization<T extends Prisma.User$organizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$organizationArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1373,11 +1384,11 @@ export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
-  readonly password: Prisma.FieldRef<"User", 'String'>
-  readonly role: Prisma.FieldRef<"User", 'String'>
   readonly feedback_resources: Prisma.FieldRef<"User", 'FeedbackResourceType[]'>
-  readonly organization_id: Prisma.FieldRef<"User", 'String'>
   readonly created_at: Prisma.FieldRef<"User", 'DateTime'>
+  readonly organization_id: Prisma.FieldRef<"User", 'String'>
+  readonly roles: Prisma.FieldRef<"User", 'UserRole[]'>
+  readonly password: Prisma.FieldRef<"User", 'String'>
 }
     
 
@@ -1822,9 +1833,9 @@ export type User$feedback_summariesArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * User.organization
+ * User.administeredOrganization
  */
-export type User$organizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$administeredOrganizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Organization
    */
@@ -1841,9 +1852,9 @@ export type User$organizationArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * User.administeredOrganization
+ * User.organization
  */
-export type User$administeredOrganizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$organizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Organization
    */

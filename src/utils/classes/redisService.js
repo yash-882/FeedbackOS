@@ -11,7 +11,9 @@ class RedisService {
             EMAIL_CHANGE_OTP: 'change-email',
             RESET_PASSWORD_TOKEN: 'reset-password-token',
             DATA_CACHE: 'cached',
-            ORG_JOIN_CODE: 'org-join-code'
+            ORG_JOIN_CODE: 'org-join-code',
+            INVITE_CODE_COUNT: 'invite-code-count',
+            PAUSE_CODE_GENERATION: 'pause-code-generation',
         }
         this.uniqueID = uniqueID;
         this.purpose = this.purposes[purpose] || purpose || 'unknown'
@@ -39,7 +41,7 @@ class RedisService {
     const condition = isUpdate ? 'XX' : 'NX'
     
     // temporarily (ttl example: 300 -> 5 minutes) store data in Redis
-    await redisClient.set(this.getKey(), data, {
+    await redisClient.set(this.key, data, {
         condition, 
         expiration:{ type: 'EX', value: ttl }
     })
@@ -58,7 +60,7 @@ class RedisService {
     const condition = isUpdate ? 'XX' : 'NX'
 
     //  store data in Redis
-    await redisClient.set(this.getKey(), data, {condition})
+    await redisClient.set(this.key, data, {condition})
     }
 
     isJSON(data){
@@ -77,8 +79,8 @@ class RedisService {
     
 
     // get data by key
-    async getData(key = this.getKey()){
-        const data = await redisClient.get(key);
+    async getData(){
+        const data = await redisClient.get(this.key);
 
         if(this.isJSON(data)){
             return JSON.parse(data)
@@ -88,8 +90,35 @@ class RedisService {
     }
 
     // delete data by key
-    async deleteData(key = this.getKey()){
-        await redisClient.del(key)
+    async deleteData(){
+        await redisClient.del(this.key)
+    }
+
+    async decrement(){
+        await redisClient.decr(this.key)
+    }
+
+    async increment(){
+        await redisClient.incr(this.key)
+    }
+
+    async addToSet(value, {ttl=0, setTtlIfExists=false}){
+        await redisClient.sAdd(this.key, value);
+
+        // set expiration  
+        if(ttl)
+            await redisClient.expire(this.key, ttl, setTtlIfExists ? 'XX' : 'NX')
+    }
+
+    async removeFromSet(value){
+        await redisClient.sRem(this.key, value)
+    }
+
+    async retrieveSETLength(){
+
+        console.log('length', await redisClient.sCard(this.key));
+        
+        return await redisClient.sCard(this.key)
     }
 }
 

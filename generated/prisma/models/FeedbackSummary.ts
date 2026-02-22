@@ -174,8 +174,8 @@ export type FeedbackSummaryWhereInput = {
   user_id?: Prisma.StringFilter<"FeedbackSummary"> | string
   ai_summary?: Prisma.StringFilter<"FeedbackSummary"> | string
   created_at?: Prisma.DateTimeFilter<"FeedbackSummary"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   feedbacks?: Prisma.FeedbackListRelationFilter
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type FeedbackSummaryOrderByWithRelationInput = {
@@ -183,8 +183,8 @@ export type FeedbackSummaryOrderByWithRelationInput = {
   user_id?: Prisma.SortOrder
   ai_summary?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
   feedbacks?: Prisma.FeedbackOrderByRelationAggregateInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type FeedbackSummaryWhereUniqueInput = Prisma.AtLeast<{
@@ -195,8 +195,8 @@ export type FeedbackSummaryWhereUniqueInput = Prisma.AtLeast<{
   user_id?: Prisma.StringFilter<"FeedbackSummary"> | string
   ai_summary?: Prisma.StringFilter<"FeedbackSummary"> | string
   created_at?: Prisma.DateTimeFilter<"FeedbackSummary"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   feedbacks?: Prisma.FeedbackListRelationFilter
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type FeedbackSummaryOrderByWithAggregationInput = {
@@ -223,8 +223,8 @@ export type FeedbackSummaryCreateInput = {
   id?: string
   ai_summary: string
   created_at?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutFeedback_summariesInput
   feedbacks?: Prisma.FeedbackCreateNestedManyWithoutFeedback_summaryInput
+  user: Prisma.UserCreateNestedOneWithoutFeedback_summariesInput
 }
 
 export type FeedbackSummaryUncheckedCreateInput = {
@@ -239,8 +239,8 @@ export type FeedbackSummaryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ai_summary?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutFeedback_summariesNestedInput
   feedbacks?: Prisma.FeedbackUpdateManyWithoutFeedback_summaryNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutFeedback_summariesNestedInput
 }
 
 export type FeedbackSummaryUncheckedUpdateInput = {
@@ -519,8 +519,8 @@ export type FeedbackSummarySelect<ExtArgs extends runtime.Types.Extensions.Inter
   user_id?: boolean
   ai_summary?: boolean
   created_at?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   feedbacks?: boolean | Prisma.FeedbackSummary$feedbacksArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.FeedbackSummaryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["feedbackSummary"]>
 
@@ -549,8 +549,8 @@ export type FeedbackSummarySelectScalar = {
 
 export type FeedbackSummaryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "user_id" | "ai_summary" | "created_at", ExtArgs["result"]["feedbackSummary"]>
 export type FeedbackSummaryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   feedbacks?: boolean | Prisma.FeedbackSummary$feedbacksArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.FeedbackSummaryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FeedbackSummaryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -563,8 +563,8 @@ export type FeedbackSummaryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Ty
 export type $FeedbackSummaryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FeedbackSummary"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
     feedbacks: Prisma.$FeedbackPayload<ExtArgs>[]
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -965,8 +965,8 @@ readonly fields: FeedbackSummaryFieldRefs;
  */
 export interface Prisma__FeedbackSummaryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   feedbacks<T extends Prisma.FeedbackSummary$feedbacksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FeedbackSummary$feedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

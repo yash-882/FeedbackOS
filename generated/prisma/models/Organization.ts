@@ -27,31 +27,31 @@ export type AggregateOrganization = {
 export type OrganizationMinAggregateOutputType = {
   id: string | null
   name: string | null
-  admin_id: string | null
   zendesk_subdomain: string | null
   slack_workspace_id: string | null
   email: string | null
   created_at: Date | null
+  admin_id: string | null
 }
 
 export type OrganizationMaxAggregateOutputType = {
   id: string | null
   name: string | null
-  admin_id: string | null
   zendesk_subdomain: string | null
   slack_workspace_id: string | null
   email: string | null
   created_at: Date | null
+  admin_id: string | null
 }
 
 export type OrganizationCountAggregateOutputType = {
   id: number
   name: number
-  admin_id: number
   zendesk_subdomain: number
   slack_workspace_id: number
   email: number
   created_at: number
+  admin_id: number
   _all: number
 }
 
@@ -59,31 +59,31 @@ export type OrganizationCountAggregateOutputType = {
 export type OrganizationMinAggregateInputType = {
   id?: true
   name?: true
-  admin_id?: true
   zendesk_subdomain?: true
   slack_workspace_id?: true
   email?: true
   created_at?: true
+  admin_id?: true
 }
 
 export type OrganizationMaxAggregateInputType = {
   id?: true
   name?: true
-  admin_id?: true
   zendesk_subdomain?: true
   slack_workspace_id?: true
   email?: true
   created_at?: true
+  admin_id?: true
 }
 
 export type OrganizationCountAggregateInputType = {
   id?: true
   name?: true
-  admin_id?: true
   zendesk_subdomain?: true
   slack_workspace_id?: true
   email?: true
   created_at?: true
+  admin_id?: true
   _all?: true
 }
 
@@ -162,11 +162,11 @@ export type OrganizationGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 export type OrganizationGroupByOutputType = {
   id: string
   name: string
-  admin_id: string
   zendesk_subdomain: string | null
   slack_workspace_id: string | null
   email: string | null
   created_at: Date
+  admin_id: string
   _count: OrganizationCountAggregateOutputType | null
   _min: OrganizationMinAggregateOutputType | null
   _max: OrganizationMaxAggregateOutputType | null
@@ -193,11 +193,11 @@ export type OrganizationWhereInput = {
   NOT?: Prisma.OrganizationWhereInput | Prisma.OrganizationWhereInput[]
   id?: Prisma.StringFilter<"Organization"> | string
   name?: Prisma.StringFilter<"Organization"> | string
-  admin_id?: Prisma.StringFilter<"Organization"> | string
   zendesk_subdomain?: Prisma.StringNullableFilter<"Organization"> | string | null
   slack_workspace_id?: Prisma.StringNullableFilter<"Organization"> | string | null
   email?: Prisma.StringNullableFilter<"Organization"> | string | null
   created_at?: Prisma.DateTimeFilter<"Organization"> | Date | string
+  admin_id?: Prisma.StringFilter<"Organization"> | string
   admin?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   users?: Prisma.UserListRelationFilter
 }
@@ -205,11 +205,11 @@ export type OrganizationWhereInput = {
 export type OrganizationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  admin_id?: Prisma.SortOrder
   zendesk_subdomain?: Prisma.SortOrderInput | Prisma.SortOrder
   slack_workspace_id?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  admin_id?: Prisma.SortOrder
   admin?: Prisma.UserOrderByWithRelationInput
   users?: Prisma.UserOrderByRelationAggregateInput
 }
@@ -232,11 +232,11 @@ export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
 export type OrganizationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  admin_id?: Prisma.SortOrder
   zendesk_subdomain?: Prisma.SortOrderInput | Prisma.SortOrder
   slack_workspace_id?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  admin_id?: Prisma.SortOrder
   _count?: Prisma.OrganizationCountOrderByAggregateInput
   _max?: Prisma.OrganizationMaxOrderByAggregateInput
   _min?: Prisma.OrganizationMinOrderByAggregateInput
@@ -248,11 +248,11 @@ export type OrganizationScalarWhereWithAggregatesInput = {
   NOT?: Prisma.OrganizationScalarWhereWithAggregatesInput | Prisma.OrganizationScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Organization"> | string
   name?: Prisma.StringWithAggregatesFilter<"Organization"> | string
-  admin_id?: Prisma.StringWithAggregatesFilter<"Organization"> | string
   zendesk_subdomain?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
   slack_workspace_id?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
   email?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Organization"> | Date | string
+  admin_id?: Prisma.StringWithAggregatesFilter<"Organization"> | string
 }
 
 export type OrganizationCreateInput = {
@@ -269,11 +269,11 @@ export type OrganizationCreateInput = {
 export type OrganizationUncheckedCreateInput = {
   id?: string
   name: string
-  admin_id: string
   zendesk_subdomain?: string | null
   slack_workspace_id?: string | null
   email?: string | null
   created_at?: Date | string
+  admin_id: string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
@@ -291,22 +291,22 @@ export type OrganizationUpdateInput = {
 export type OrganizationUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  admin_id?: Prisma.StringFieldUpdateOperationsInput | string
   zendesk_subdomain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slack_workspace_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  admin_id?: Prisma.StringFieldUpdateOperationsInput | string
   users?: Prisma.UserUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateManyInput = {
   id?: string
   name: string
-  admin_id: string
   zendesk_subdomain?: string | null
   slack_workspace_id?: string | null
   email?: string | null
   created_at?: Date | string
+  admin_id: string
 }
 
 export type OrganizationUpdateManyMutationInput = {
@@ -321,41 +321,41 @@ export type OrganizationUpdateManyMutationInput = {
 export type OrganizationUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  admin_id?: Prisma.StringFieldUpdateOperationsInput | string
   zendesk_subdomain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slack_workspace_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  admin_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type OrganizationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  admin_id?: Prisma.SortOrder
   zendesk_subdomain?: Prisma.SortOrder
   slack_workspace_id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  admin_id?: Prisma.SortOrder
 }
 
 export type OrganizationMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  admin_id?: Prisma.SortOrder
   zendesk_subdomain?: Prisma.SortOrder
   slack_workspace_id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  admin_id?: Prisma.SortOrder
 }
 
 export type OrganizationMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  admin_id?: Prisma.SortOrder
   zendesk_subdomain?: Prisma.SortOrder
   slack_workspace_id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  admin_id?: Prisma.SortOrder
 }
 
 export type OrganizationNullableScalarRelationFilter = {
@@ -375,15 +375,15 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
-export type OrganizationCreateNestedOneWithoutUsersInput = {
-  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutUsersInput, Prisma.OrganizationUncheckedCreateWithoutUsersInput>
-  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutUsersInput
-  connect?: Prisma.OrganizationWhereUniqueInput
-}
-
 export type OrganizationCreateNestedOneWithoutAdminInput = {
   create?: Prisma.XOR<Prisma.OrganizationCreateWithoutAdminInput, Prisma.OrganizationUncheckedCreateWithoutAdminInput>
   connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutAdminInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationCreateNestedOneWithoutUsersInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutUsersInput, Prisma.OrganizationUncheckedCreateWithoutUsersInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutUsersInput
   connect?: Prisma.OrganizationWhereUniqueInput
 }
 
@@ -391,16 +391,6 @@ export type OrganizationUncheckedCreateNestedOneWithoutAdminInput = {
   create?: Prisma.XOR<Prisma.OrganizationCreateWithoutAdminInput, Prisma.OrganizationUncheckedCreateWithoutAdminInput>
   connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutAdminInput
   connect?: Prisma.OrganizationWhereUniqueInput
-}
-
-export type OrganizationUpdateOneWithoutUsersNestedInput = {
-  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutUsersInput, Prisma.OrganizationUncheckedCreateWithoutUsersInput>
-  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutUsersInput
-  upsert?: Prisma.OrganizationUpsertWithoutUsersInput
-  disconnect?: Prisma.OrganizationWhereInput | boolean
-  delete?: Prisma.OrganizationWhereInput | boolean
-  connect?: Prisma.OrganizationWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutUsersInput, Prisma.OrganizationUpdateWithoutUsersInput>, Prisma.OrganizationUncheckedUpdateWithoutUsersInput>
 }
 
 export type OrganizationUpdateOneWithoutAdminNestedInput = {
@@ -413,6 +403,16 @@ export type OrganizationUpdateOneWithoutAdminNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutAdminInput, Prisma.OrganizationUpdateWithoutAdminInput>, Prisma.OrganizationUncheckedUpdateWithoutAdminInput>
 }
 
+export type OrganizationUpdateOneWithoutUsersNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutUsersInput, Prisma.OrganizationUncheckedCreateWithoutUsersInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutUsersInput
+  upsert?: Prisma.OrganizationUpsertWithoutUsersInput
+  disconnect?: Prisma.OrganizationWhereInput | boolean
+  delete?: Prisma.OrganizationWhereInput | boolean
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutUsersInput, Prisma.OrganizationUpdateWithoutUsersInput>, Prisma.OrganizationUncheckedUpdateWithoutUsersInput>
+}
+
 export type OrganizationUncheckedUpdateOneWithoutAdminNestedInput = {
   create?: Prisma.XOR<Prisma.OrganizationCreateWithoutAdminInput, Prisma.OrganizationUncheckedCreateWithoutAdminInput>
   connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutAdminInput
@@ -421,31 +421,6 @@ export type OrganizationUncheckedUpdateOneWithoutAdminNestedInput = {
   delete?: Prisma.OrganizationWhereInput | boolean
   connect?: Prisma.OrganizationWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutAdminInput, Prisma.OrganizationUpdateWithoutAdminInput>, Prisma.OrganizationUncheckedUpdateWithoutAdminInput>
-}
-
-export type OrganizationCreateWithoutUsersInput = {
-  id?: string
-  name: string
-  zendesk_subdomain?: string | null
-  slack_workspace_id?: string | null
-  email?: string | null
-  created_at?: Date | string
-  admin: Prisma.UserCreateNestedOneWithoutAdministeredOrganizationInput
-}
-
-export type OrganizationUncheckedCreateWithoutUsersInput = {
-  id?: string
-  name: string
-  admin_id: string
-  zendesk_subdomain?: string | null
-  slack_workspace_id?: string | null
-  email?: string | null
-  created_at?: Date | string
-}
-
-export type OrganizationCreateOrConnectWithoutUsersInput = {
-  where: Prisma.OrganizationWhereUniqueInput
-  create: Prisma.XOR<Prisma.OrganizationCreateWithoutUsersInput, Prisma.OrganizationUncheckedCreateWithoutUsersInput>
 }
 
 export type OrganizationCreateWithoutAdminInput = {
@@ -473,35 +448,29 @@ export type OrganizationCreateOrConnectWithoutAdminInput = {
   create: Prisma.XOR<Prisma.OrganizationCreateWithoutAdminInput, Prisma.OrganizationUncheckedCreateWithoutAdminInput>
 }
 
-export type OrganizationUpsertWithoutUsersInput = {
-  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutUsersInput, Prisma.OrganizationUncheckedUpdateWithoutUsersInput>
+export type OrganizationCreateWithoutUsersInput = {
+  id?: string
+  name: string
+  zendesk_subdomain?: string | null
+  slack_workspace_id?: string | null
+  email?: string | null
+  created_at?: Date | string
+  admin: Prisma.UserCreateNestedOneWithoutAdministeredOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutUsersInput = {
+  id?: string
+  name: string
+  zendesk_subdomain?: string | null
+  slack_workspace_id?: string | null
+  email?: string | null
+  created_at?: Date | string
+  admin_id: string
+}
+
+export type OrganizationCreateOrConnectWithoutUsersInput = {
+  where: Prisma.OrganizationWhereUniqueInput
   create: Prisma.XOR<Prisma.OrganizationCreateWithoutUsersInput, Prisma.OrganizationUncheckedCreateWithoutUsersInput>
-  where?: Prisma.OrganizationWhereInput
-}
-
-export type OrganizationUpdateToOneWithWhereWithoutUsersInput = {
-  where?: Prisma.OrganizationWhereInput
-  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutUsersInput, Prisma.OrganizationUncheckedUpdateWithoutUsersInput>
-}
-
-export type OrganizationUpdateWithoutUsersInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  zendesk_subdomain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  slack_workspace_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  admin?: Prisma.UserUpdateOneRequiredWithoutAdministeredOrganizationNestedInput
-}
-
-export type OrganizationUncheckedUpdateWithoutUsersInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  admin_id?: Prisma.StringFieldUpdateOperationsInput | string
-  zendesk_subdomain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  slack_workspace_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type OrganizationUpsertWithoutAdminInput = {
@@ -533,6 +502,37 @@ export type OrganizationUncheckedUpdateWithoutAdminInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUpsertWithoutUsersInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutUsersInput, Prisma.OrganizationUncheckedUpdateWithoutUsersInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutUsersInput, Prisma.OrganizationUncheckedCreateWithoutUsersInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutUsersInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutUsersInput, Prisma.OrganizationUncheckedUpdateWithoutUsersInput>
+}
+
+export type OrganizationUpdateWithoutUsersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  zendesk_subdomain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slack_workspace_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  admin?: Prisma.UserUpdateOneRequiredWithoutAdministeredOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutUsersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  zendesk_subdomain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slack_workspace_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  admin_id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -569,11 +569,11 @@ export type OrganizationCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Ty
 export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  admin_id?: boolean
   zendesk_subdomain?: boolean
   slack_workspace_id?: boolean
   email?: boolean
   created_at?: boolean
+  admin_id?: boolean
   admin?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   users?: boolean | Prisma.Organization$usersArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
@@ -582,36 +582,36 @@ export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.Internal
 export type OrganizationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  admin_id?: boolean
   zendesk_subdomain?: boolean
   slack_workspace_id?: boolean
   email?: boolean
   created_at?: boolean
+  admin_id?: boolean
   admin?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["organization"]>
 
 export type OrganizationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  admin_id?: boolean
   zendesk_subdomain?: boolean
   slack_workspace_id?: boolean
   email?: boolean
   created_at?: boolean
+  admin_id?: boolean
   admin?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["organization"]>
 
 export type OrganizationSelectScalar = {
   id?: boolean
   name?: boolean
-  admin_id?: boolean
   zendesk_subdomain?: boolean
   slack_workspace_id?: boolean
   email?: boolean
   created_at?: boolean
+  admin_id?: boolean
 }
 
-export type OrganizationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "admin_id" | "zendesk_subdomain" | "slack_workspace_id" | "email" | "created_at", ExtArgs["result"]["organization"]>
+export type OrganizationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "zendesk_subdomain" | "slack_workspace_id" | "email" | "created_at" | "admin_id", ExtArgs["result"]["organization"]>
 export type OrganizationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   admin?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   users?: boolean | Prisma.Organization$usersArgs<ExtArgs>
@@ -633,11 +633,11 @@ export type $OrganizationPayload<ExtArgs extends runtime.Types.Extensions.Intern
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
-    admin_id: string
     zendesk_subdomain: string | null
     slack_workspace_id: string | null
     email: string | null
     created_at: Date
+    admin_id: string
   }, ExtArgs["result"]["organization"]>
   composites: {}
 }
@@ -1065,11 +1065,11 @@ export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends run
 export interface OrganizationFieldRefs {
   readonly id: Prisma.FieldRef<"Organization", 'String'>
   readonly name: Prisma.FieldRef<"Organization", 'String'>
-  readonly admin_id: Prisma.FieldRef<"Organization", 'String'>
   readonly zendesk_subdomain: Prisma.FieldRef<"Organization", 'String'>
   readonly slack_workspace_id: Prisma.FieldRef<"Organization", 'String'>
   readonly email: Prisma.FieldRef<"Organization", 'String'>
   readonly created_at: Prisma.FieldRef<"Organization", 'DateTime'>
+  readonly admin_id: Prisma.FieldRef<"Organization", 'String'>
 }
     
 

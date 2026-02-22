@@ -76,11 +76,11 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const OrganizationScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  admin_id: 'admin_id',
   zendesk_subdomain: 'zendesk_subdomain',
   slack_workspace_id: 'slack_workspace_id',
   email: 'email',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  admin_id: 'admin_id'
 } as const
 
 export type OrganizationScalarFieldEnum = (typeof OrganizationScalarFieldEnum)[keyof typeof OrganizationScalarFieldEnum]
@@ -90,11 +90,11 @@ export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
-  password: 'password',
-  role: 'role',
   feedback_resources: 'feedback_resources',
+  created_at: 'created_at',
   organization_id: 'organization_id',
-  created_at: 'created_at'
+  roles: 'roles',
+  password: 'password'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
