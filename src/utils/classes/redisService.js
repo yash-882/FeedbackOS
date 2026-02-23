@@ -91,7 +91,7 @@ class RedisService {
 
     // delete data by key
     async deleteData(){
-        await redisClient.del(this.key)
+        return await redisClient.del(this.key)
     }
 
     async decrement(){
@@ -102,6 +102,7 @@ class RedisService {
         await redisClient.incr(this.key)
     }
 
+    //  Redis SET[] operations from here ---------------------------------
     async addToSet(value, {ttl=0, setTtlIfExists=false}){
         await redisClient.sAdd(this.key, value);
 

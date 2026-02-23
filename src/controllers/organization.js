@@ -1,4 +1,5 @@
 // organization controller to handle organization related operations such as creating an organization, generating join codes, etc.
+// Redis is used for managing organization join codes
 
 import { prisma } from '../server.js';
 import { CustomError } from '../utils/classes/customError.js';
@@ -119,8 +120,40 @@ const joinOrganizationWithCode = async (req, res, next) => {
     });
 }
 
+// get all generated join-codes
+const getAllJoinCodes = async (req, res, next) => {
+    const organizationId = req.user.organization_id;
+    const joinCodeService = new RedisService(organizationId, 'ALL_JOIN_CODES');
+
+    const joinCodes = await joinCodeService.retrieveSETData();
+    res.status(200).json({
+        status: 'success',
+        data: { joinCodes }
+    })
+}
+
+
+// invalidate generated join-codes
+const invalidateJoinCode = async (req, res, next) => {
+    const { joinCode } = req.body || {};
+    const redisService = new RedisService(joinCode, 'ORG_JOIN_CODE');
+
+    const deletedCount = await redisService.deleteData();
+
+    if(deletedCount === 0)
+        return next(new CustomError("Join code not found!", 404))
+    
+    res.status(200).json({
+        status: 'success',
+        message: 'Join code invalidated successfully!'
+    })
+}
+
+
 export {
     createOrganization,
     getOrganizationJoinCode,
-    joinOrganizationWithCode
+    joinOrganizationWithCode,
+    getAllJoinCodes,
+    invalidateJoinCode
 }
